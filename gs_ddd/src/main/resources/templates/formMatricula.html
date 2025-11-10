@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Matrícula</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Nova Matrícula</h1>
+    <form th:action="${acao} == null ? '/matriculas' : ${acao}" method="post">
+        <div class="mb-3">
+            <label for="idUsuario" class="form-label">Usuário</label>
+            <select class="form-select" id="idUsuario" name="idUsuario" required>
+                <option value="">Selecione...</option>
+                <option th:each="u : ${usuarios}" th:value="${u.idUsuario}"
+                        th:text="${u.nome}"
+                        th:selected="${acao} != null ? ${matricula.usuario.idUsuario == u.idUsuario} : false"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="idCurso" class="form-label">Curso</label>
+            <select class="form-select" id="idCurso" name="idCurso" required>
+                <option value="">Selecione...</option>
+                <option th:each="c : ${cursos}" th:value="${c.idCurso}"
+                        th:text="${c.titulo}"
+                        th:selected="${acao} != null ? ${matricula.curso.idCurso == c.idCurso} : false"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <input type="text" class="form-control" id="status" name="status"
+                   th:value="${acao} != null ? ${matricula.status}">
+        </div>
+        <div class="mb-3">
+            <label for="nota" class="form-label">Nota</label>
+            <input type="number" class="form-control" id="nota" name="nota" step="0.01"
+                   th:value="${acao} != null ? ${matricula.nota}">
+        </div>
+        <button type="submit" class="btn btn-success">Salvar</button>
+        <a href="/matriculas" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+package br.com.fiap.gs_ddd.model.entity;
+
+import br.com.fiap.gs_ddd.model.dto.CursoDTO;
+import jakarta.persistence.*;
+
+@Entity(name = "Curso")
+@Table(name = "DDD_CURSO")
+public class Curso {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_CURSO")
+    private Long idCurso;
+
+    @Column(name = "TITULO", length = 200, nullable = false)
+    private String titulo;
+
+    @Column(name = "DESCRICAO", length = 1000)
+    private String descricao;
+
+    @Column(name = "CARGA_HORARIA")
+    private Integer cargaHoraria;
+
+    // Construtor vazio
+    public Curso() {
+    }
+
+    // Construtor com DTO (conversão segura de cargaHoraria)
+    public Curso(CursoDTO cursoDTO) {
+        this.titulo = cursoDTO.titulo();
+        this.descricao = cursoDTO.descricao();
+        // trata caso o DTO use Double ou Integer
+        if (cursoDTO.cargaHoraria() != null) {
+            // se for Double -> converte; se for Integer -> converte via Number
+            Object ch = cursoDTO.cargaHoraria();
+            if (ch instanceof Number) {
+                this.cargaHoraria = ((Number) ch).intValue();
+            } else {
+                // tenta parsear por segurança (caso venha string) — evita NPE
+                try {
+                    this.cargaHoraria = Integer.parseInt(ch.toString());
+                } catch (Exception e) {
+                    this.cargaHoraria = null;
+                }
+            }
+        } else {
+            this.cargaHoraria = null;
+        }
+    }
+
+    // Getters e Setters
+    public Long getIdCurso() {
+        return idCurso;
+    }
+
+    public void setIdCurso(Long idCurso) {
+        this.idCurso = idCurso;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Integer getCargaHoraria() {
+        return cargaHoraria;
+    }
+
+    public void setCargaHoraria(Integer cargaHoraria) {
+        this.cargaHoraria = cargaHoraria;
+    }
+}
