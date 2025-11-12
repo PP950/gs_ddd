@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Principal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .menu a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h1>Bem-vindo ao Sistema de Cursos</h1>
+<div class="menu">
+    <a href="/usuarios">Usuários</a>
+    <a href="/cursos">Cursos</a>
+    <a href="/matriculas">Matrículas</a>
+</div>
+</body>
+</html>
